@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Dinda ❤️</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to top, #ff758c, #ff7eb3);
+    color: white;
+}
+
+#container {
+    position: relative;
+    z-index: 2;
+}
+
+#typing {
+    margin-top: 60px;
+    font-size: 32px;
+    min-height: 40px;
+}
+
+p {
+    max-width: 600px;
+    margin: 20px auto;
+    font-size: 20px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #ff4d6d;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear forwards;
+    z-index: 1;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh); }
+}
+
+#clickBtn {
+    margin-top: 20px;
+    font-size: 22px;
+    padding: 18px;
+    border-radius: 50%;
+    background: #ff4d6d;
+    color: white;
+}
+
+#score {
+    margin-top: 10px;
+    font-size: 22px;
+}
+
+#bigLove {
+    display: none;
+    font-size: 180px;
+    animation: pop 1s ease forwards;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1.2); }
+}
+
+#ending {
+    display: none;
+    font-size: 50px;
+    margin-top: 40px;
+    animation: fadeIn 3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#startScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5;
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+    <h2>Siap ya Dinda ❤️</h2>
+    <button onclick="startExperience()">Masuk Mode Cinematic 💖</button>
+</div>
+
+<div id="container">
+
+<div id="typing"></div>
+
+<p>
+Dinda, kamu itu rumah buat aku dan akan selalu seperti itu.<br><br>
+Aku bersyukur banget kamu hadir di hidup aku.<br><br>
+Dari banyak hal di dunia ini... aku bersyukur banget punya kamu ❤️
+</p>
+
+<div>
+    <button id="clickBtn" onclick="addScore()">Klik Aku 💖</button>
+    <div id="score">Love: 0</div>
+</div>
+
+<div id="bigLove">❤️</div>
+<div id="ending">I LOVE YOU SO MUCH DINDA ❤️</div>
+
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<script>
+function startExperience() {
+    const elem = document.documentElement;
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+    }
+
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("bgMusic").play();
+}
+
+const text = "Dari Daniel untuk Dinda ❤️";
+let i = 0;
+
+function typingEffect() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typingEffect, 70);
+    }
+}
+typingEffect();
+
+let score = 0;
+
+function addScore() {
+    score++;
+    document.getElementById("score").innerText = "Love: " + score;
+
+    if (score == 20) alert("Aku makin sayang sama kamu ❤️");
+    if (score == 50) alert("Serius, kamu itu segalanya buat aku 💖");
+
+    if (score >= 100) showBigLove();
+}
+
+function showBigLove() {
+    document.getElementById("bigLove").style.display = "block";
+
+    setTimeout(() => {
+        document.getElementById("ending").style.display = "block";
+    }, 1500);
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
